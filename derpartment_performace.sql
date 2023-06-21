@@ -1,3 +1,4 @@
+# Part 1: Design/Create Database
 DROP DATABASE IF EXISTS kpi;
 CREATE DATABASE IF NOT EXISTS kpi; 
 USE kpi;
@@ -33,8 +34,6 @@ CREATE TABLE performance (
     project_amt 	INT 						NOT NULL,
     start_date 		DATE 						NOT NULL,
     end_date 		DATE 						NULL			DEFAULT NULL
-    #FOREIGN KEY (project_code)	REFERENCES project_info (project_code)	ON DELETE CASCADE,
-    #FOREIGN KEY (emp_id)		REFERENCES employee (emp_id)			ON DELETE CASCADE
 );
 
 ALTER TABLE performance
@@ -62,21 +61,18 @@ WHERE project_code = '0728957120';
 CREATE TABLE project_progress (
     project_code 		CHAR(10) 		NOT NULL,
     progress_detail 	VARCHAR(200) 	NULL,
-    #FOREIGN KEY (project_code)	REFERENCES project_info (project_code)	ON DELETE CASCADE,
 	PRIMARY KEY (project_code)
 );
 
 ALTER TABLE project_progress
 ADD FOREIGN KEY (project_code)	REFERENCES project_info (project_code)	ON DELETE CASCADE;
 
-# Drop foreign key 
-/*ALTER TABLE project_progress
-DROP foreign key `project_progress_ibfk_2`;*/
-
 # disable only full group by
 SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY','')); 
 SELECT @@sql_mode;
 
+
+# Part 2: Department Performance Analysis
 # Monthly progress of each employee
 SELECT 
 	p.project_code, p.emp_id, e.first_name, e.last_name, p.customer, p.progress
@@ -162,13 +158,3 @@ FROM
     project_progress pp ON p.project_code = pp.project_code
 WHERE
     progress = 'ongoing' AND start_date < '2020-01-01';
-
-# Daily progress of each employee
-# which employee has the most number of projects
-# which employee has the highest amount of projects
-# project average time
-# which project took longest time/take a look at the progress detail
-
-
-
-
