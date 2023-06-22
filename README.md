@@ -6,9 +6,11 @@ Below is the image of the database that I have designed
 
 In Performance Analysis Database.sql, there are two parts:
 
-Part I is about creating database and tables
+-Part I is about creating database and tables
 
-Part II is about some analysis I have made
+-Part II is about some analysis I have made
+
 
 In insert values.sql is the synthetic data that have been randomly created, all the data in this sql file is fake
-The data is just for testing the database and also the analysis
+
+The purpose of generating synthetic data is just for testing the database and also the analysis.
